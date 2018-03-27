@@ -18,7 +18,7 @@ class Learner:
         self.problem = problem
         #this has to be a number between 0 and 1
         self.e_value = e_value
-        self.rewards = [0.0] * len(problem.lever_rewards)
+        self.rewards = [0.5] * len(problem.lever_rewards)
         self.step = 1
     def perform_action(self):
         print("before action: " + str(self.rewards))
@@ -40,7 +40,7 @@ class Learner:
     def update_rewards(self, action_index, new_reward):
         first_part = (self.rewards[action_index] * (self.step - 1) + new_reward)
         self.rewards[action_index] = first_part / self.step
-
+        
     def get_greatest_lever(self):
         greatest_index = 0
         for i in range(len(self.rewards)):
@@ -55,6 +55,6 @@ class Learner:
 p = Problem(arm_count=5)
 a = Learner(p, 0.1)
 
-for i in xrange(1000):
+for i in xrange(10000):
     a.perform_action()
 print("true rewards: " + str(p.lever_rewards))
